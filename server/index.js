@@ -6,7 +6,10 @@ const wss = new WebSocket.Server({
 
 wss.on('connection', (ws) => {
   ws.onmessage = ({ data }) => {
-    console.log(data);
-    ws.send(data);
+    wss.clients.forEach((c) => {
+      if (c.readyState === WebSocket.OPEN) {
+        c.send(data);
+      }
+    });
   };
 });
