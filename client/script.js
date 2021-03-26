@@ -39,3 +39,5 @@ ws.onopen = (e) => {
 ws.onmessage = ({ data }) => {
   generateNewMessage(data);
 };
+
+ws.onclose = () => console.log('connection closed');
