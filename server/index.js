@@ -1,8 +1,12 @@
 const WebSocket = require('ws');
+const express = require('express');
+const path = require('path');
 
-const wss = new WebSocket.Server({
-  port: 3000,
-});
+const app = express();
+app.use('/', express.static(path.resolve(__dirname, '../client')));
+const server = app.listen(3000);
+
+const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
   ws.onmessage = ({ data }) => {
